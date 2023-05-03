@@ -4,8 +4,9 @@ about Topics cloud roles
 The fundamentals of IT
 ----------------------------------------------------------------
 Email configuration 
+-------------------
 ----------------------------------------------------------------
-retriving email messages
+Retriving email messages
 ------------------------
 POP3 Protocal
 POP3-Post Office Protocal 3
@@ -35,7 +36,38 @@ network ports
  >IMAP tcp/143
  >SSL settings IMAPS:tcp/993
  *POP3 is not used then there is IMAP4*
- ---------------------------------------------------------------
+----------------------------------------------------------------
+Sending Mail
+-------------
+SMTP protocal
+SMTP-Simple Mail Transfer 
+ >send mail from device to server 
+Authentication
+ >different from retriving authentication 
+Port number 
+ >SMTP-tcp/25
+ >SMTP authentication tcp/587
+----------------------------------------------------------------
+Microsoft exchange
+------------------
+>more than mail service 
+>intergrated with all eg.calender,contact,remainder.
+Configuration Option
+>Email,Server,domain,username,password.
+Security encryption
+>S/MINE-secure/multipurpose Internet Mail Extentions
+digital sign 
+----------------------------------------------------------------
+
+Gmail - googlemail,split in to tabs,IMAP4,POP3
+Exchange - IMAP4 and POP 
+iCloud Mail
+Yahoo Mail
+
  
  
- 
+
+
+
+
+
