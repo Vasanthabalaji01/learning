@@ -2,5 +2,23 @@
 about Topics cloud roles 
 
 The fundamentals of IT
-
+----------------------------------------------------------------
 Email configuration 
+
+POP3 Protocal
+retriving email messages:- POP3-Post Office Protocal 3
+ >used for downloading mail to local device 
+ >delete from server
+configeration information 
+ >name of POP3 server
+ >authentication user & password
+network ports
+ >mail provider provide it 
+ >POP3 tcp/110
+ >SSL settings POP3S:tcp/995 
+
+this not used most now 
+----------------------------------------------------------------
+Retriving mail messages
+
+IMAP protocal
