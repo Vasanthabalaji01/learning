@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Set the AWS region and other configuration variables
+REGION="us-east-1"
+INSTANCE_TYPE="t2.micro"
+AMI_ID="ami-12345678"
+SUBNET_ID="subnet-12345678"
+SECURITY_GROUP_ID="sg-12345678"
+KEY_PAIR_NAME="my-keypair"
+
+# Create the EC2 instance
+INSTANCE_ID=$(aws ec2 run-instances \
+  --region $REGION \
+  --image-id $AMI_ID \
+  --instance-type $INSTANCE_TYPE \
+  --subnet-id $SUBNET_ID \
+  --security-group-ids $SECURITY_GROUP_ID \
+  --key-name $KEY_PAIR_NAME \
+  --output text --query 'Instances[0].InstanceId')
+
+echo "Instance $INSTANCE_ID is being provisioned..."
+
+# Wait until the instance is running
+aws ec2 wait instance-running --region $REGION --instance-ids $INSTANCE_ID
+
+# Get the public IP address of the instance
+PUBLIC_IP=$(aws ec2 describe-instances \
+  --region $REGION \
+  --instance-ids $INSTANCE_ID \
+  --output text --query 'Reservations[0].Instances[0].PublicIpAddress')
+
+echo "Instance $INSTANCE_ID is now running with Public IP: $PUBLIC_IP"

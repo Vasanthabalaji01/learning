@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Set the cloud provider specific variables
+REGION="your-region"
+LOAD_BALANCER_NAME="your-load-balancer-name"
+MIN_INSTANCES=2
+MAX_INSTANCES=10
+CPU_THRESHOLD=70
+
+# Function to retrieve the current number of running instances
+get_instance_count() {
+  instance_count=$(your_cloud_provider_command_to_get_instance_count)
+  echo "$instance_count"
+}
+
+# Function to retrieve the CPU utilization of a specific instance
+get_cpu_utilization() {
+  instance_id="$1"
+  cpu_utilization=$(your_cloud_provider_command_to_get_cpu_utilization "$instance_id")
+  echo "$cpu_utilization"
+}
+
+# Function to scale instances based on CPU utilization
+scale_instances() {
+  instance_count=$(get_instance_count)
+
+  # Iterate through each instance
+  for ((i=1; i<=instance_count; i++)); do
+    instance_id=$(your_cloud_provider_command_to_get_instance_id "$i")
+    cpu_utilization=$(get_cpu_utilization "$instance_id")
+
+    # If CPU utilization exceeds the threshold, add an instance
+    if [ "$cpu_utilization" -gt "$CPU_THRESHOLD" ]; then
+      if [ "$instance_count" -lt "$MAX_INSTANCES" ]; then
+        your_cloud_provider_command_to_add_instance
+        instance_count=$((instance_count+1))
+      fi
+    fi
+
+    # If CPU utilization is below the threshold, remove an instance
+    if [ "$cpu_utilization" -lt "$CPU_THRESHOLD" ]; then
+      if [ "$instance_count" -gt "$MIN_INSTANCES" ]; then
+        your_cloud_provider_command_to_remove_instance "$instance_id"
+        instance_count=$((instance_count-1))
+      fi
+    fi
+  done
+
+  # Update load balancing configurations
+  aws elbv2 modify-target-group-attributes \
+    --region $REGION \
+    --target-group-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:targetgroup/$LOAD_BALANCER_NAME/3c5b4e12f0f4c5d7 \
+    --attributes Key=deregistration_delay.timeout_seconds,Value=30
+
+  # Print the current number of instances after scaling
+  echo "Number of instances: $INSTANCE_COUNT"
+}
+
+# Execute the scaling function
+scale_instances
+
