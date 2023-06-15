@@ -7,5 +7,3 @@ To use this script:
 3. Run the script with `./CheckSpelling.sh`.
 
 The script will prompt you to enter the folder path. Provide the absolute or relative path to the folder you want to spell-check. The script will iterate through each file in that folder (excluding subfolders) and perform spell-checking using the `aspell` tool with the English language (`--lang=en`). The script will display the file name and the spell-checking results using the `aspell` command's `--check` option.
-
-You can adjust the language or modify the script further according to your specific requirements or preferences.
